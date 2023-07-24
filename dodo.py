@@ -17,29 +17,29 @@ headers = {
 params = {
     'fromTokenAddress': '0xc2132D05D31c914a87C6611C10748AEb04B58e8F',
     'fromTokenDecimals': '6',
-    'toTokenAddress': '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+    'toTokenAddress': '0x5fe2B58c013d7601147DcdD68C143A77499f5531',
     'toTokenDecimals': '18',
     'fromAmount': '100000000',
     'userAddr': '0x0000000000000000000000000000000000000000',
     'chainId': '137',
     'slippage': '3',
     'estimateGas': 'false',
-    'blockNumber': '999999999999',
-    'deadLine': '1690138622',
+    'blockNumber': '45476791',
+    'deadLine': '1690235405',
     'source': 'dodoSwap',
-    'accessToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMxMzgzOTM4MzQzMDMwNjUzNTY2MzIzMTMxNjMzNTJkMzAzODMzMzA2NjM0NjY2NDY1NjY2MzMzMzUyZDMyMzYzMDMzMzE2NDM1MzEyZDMxNjY2MTM0MzAzMDJkMzEzODM5MzgzNDMwMzA2NTM1NjYzMzMxMzMzMDYzIiwicyI6NDAsImlhdCI6MTY5MDEzNjc5OSwiZXhwIjoxNjkwMjIzMTk5fQ.G8gRX5GRtAIBvPKm9cYCyc4PrCzn1reLIMiW7E5n2mU',
+    'accessToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMxMzgzOTM4MzQzMDMwNjUzNTY2MzIzMTMxNjMzNTJkMzAzODMzMzA2NjM0NjY2NDY1NjY2MzMzMzUyZDMyMzYzMDMzMzE2NDM1MzEyZDMxNjY2MTM0MzAzMDJkMzEzODM5MzgzNDMwMzA2NTM1NjYzMzMxMzMzMDYzIiwicyI6NDAsImlhdCI6MTY5MDIzNDAxNywiZXhwIjoxNjkwMzIwNDE3fQ.yLOa9X76MmQWpu5NZy5U2ss4gsVyT8jbtUDitEBFKm4',
 }
 
 
-def dodo_resp():
-    resp = requests.get('https://api.dodoex.io/route-service/frontend-v2/getdodoroute', params=params, headers=headers)
-    dodo_data = json.loads(resp.content)
-    print(dodo_data)
-    return dodo_data['data']['resAmount'], dodo_data['data']['additionalFeeAmount']
+# def dodo_resp():
+#     resp = requests.get('https://api.dodoex.io/route-service/frontend-v2/getdodoroute', params=params, headers=headers)
+#     dodo_data = json.loads(resp.content)
+#     print(dodo_data)
+#     return dodo_data['data']['resAmount'], dodo_data['data']['additionalFeeAmount']
 
 
-# async def dodo_resp():
-#     async with aiohttp.ClientSession() as session:
-#         async with session.get('https://api.dodoex.io/route-service/frontend-v2/getdodoroute', params=params, headers=headers) as resp:
-#             dodo_data = json.loads(await resp.text())
-#             return dodo_data['data']['resAmount'], dodo_data['data']['additionalFeeAmount']
+async def dodo_resp():
+    async with aiohttp.ClientSession(headers=headers) as session:
+        async with session.get('https://api.dodoex.io/route-service/frontend-v2/getdodoroute', params=params) as resp:
+            dodo_data = json.loads(await resp.text())
+            return dodo_data['data']['resAmount'], dodo_data['data']['additionalFeeAmount']
